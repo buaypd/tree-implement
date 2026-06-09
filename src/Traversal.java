@@ -1,3 +1,4 @@
+import java.util.*;
 public class Traversal {
   public static void main(String[] args) {
     TreeNode<Integer> root = new TreeNode<>(10);
@@ -26,15 +27,43 @@ public class Traversal {
     inOrder(root);
     postOrder(root);
     printGreaterThan(root, 1);
+    TreeNode<Integer> megaroot = new TreeNode<Integer>(1);
+
+    TreeNode<Integer> current = megaroot;
+
+for (int i=0; i < 100_001; i++) {
+  current.right = new TreeNode<Integer>(i);
+  current = current.right;
+}
+// preOrder(megaroot);
+preOrderIrterative(megaroot);
+
+
   }
   public static int countNodes(TreeNode<?> current) {
   if (current == null) return 0;
 
+
+
   int leftCount = countNodes(current.left);
   int rightCount = countNodes(current.right);
 
-  int total = rightCount + leftCount + 1;
-  return total;
+  // int total = rightCount + leftCount + 1;
+  return 1 + leftCount + rightCount ;
+}
+
+
+public static void preOrderIrterative(TreeNode<?> root){
+  Stack<TreeNode<?>> stack = new Stack<>();
+  stack.push(root);
+  while(!stack.isEmpty()) {
+    TreeNode<?> current = stack.pop();
+    if(current == null) continue;
+    System.out.println(current.data);
+    stack.push(current.right);
+    stack.push(current.left);
+  }
+
 }
   public static <E> void preOrder(TreeNode<E> current) {
     if (current == null) return;
